@@ -1,0 +1,34 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <div style="margin-top: 12vh;" class="container text-center">
+        <h4><i class="fas fa-user"></i> Eline</h4>
+        <p><span class="mr-2">04 Followers</span> | <span class="ml-2">03 Following</span></p>
+        <button class="d-inline btn btn-info">Follow</button>
+        <button class="d-inline btn btn-danger">Unfollow</button>
+
+        <ul id="posts">
+            <li class="single-post text-left">
+            <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Eline</h6>
+            <small>Jun 11 2022, 7:32PM</small>
+            <p>Aff esse professor passando mais trabalho, um saco! Queria ver meu namoradinho</p>
+            <button class="btn"><i class="fa-regular fa-heart"></i></button>
+            <button class="btn"><i class="fas fa-heart"></i></button>
+        </li> 
+        <li class="single-post text-left">
+            <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Eline</h6>
+            <small>May 17 2022, 6:46PM</small>
+            <p>O aniversário de Micael foi incrível, eu amo ele!</p>
+            <button class="btn"><i class="fa-regular fa-heart"></i></button>
+            <button class="btn"><i class="fas fa-heart"></i></button>
+        </li>
+        <li class="single-post text-left">
+            <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Eline</h6>
+            <small>Jun 11 2022, 2:12PM</small>
+            <p>Que saudades do meu homem.</p>
+            <button class="btn"><i class="fa-regular fa-heart"></i></button>
+            <button class="btn"><i class="fas fa-heart"></i></button>
+        </li>
+        </ul>
+    </div>
+{% endblock %}
