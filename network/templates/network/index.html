@@ -2,94 +2,54 @@
 
 {% block body %}
    <div id="new-post" class="text-center pt-3" style="width: 50%; margin: 2rem auto;">
-        <form id="new-post" action="">
+        <form id="new-post" action="{% url 'createPost' %}" method="post">
+            {% csrf_token %}
             <h4 style="color:#626168;">New Post</h4>
-            <textarea class="mb-1" name="" id="" placeholder="What are you thinking about?"></textarea>
+            {% if user.is_authenticated %}
+            <textarea class="mb-1" name="content" id="content" placeholder="What are you thinking about?"></textarea>
             <button class="btn btn-secondary form-control" type="submit">Add post</button>
+            {% else %}
+            <textarea class="mb-1" name="content" id="content" placeholder="What are you thinking about?" disabled></textarea>
+            <button class="btn btn-secondary form-control" type="submit" disabled>Add post</button>
+            <small>You need to log in to add a post.</small>
+            {% endif %}
+            
+            {% if message %}
+                <small>{{message}}</small>
+            {% endif %}
         </form>
    </div>
 
 
    <div id="all-posts">
         <ul id="posts">
-            <li class="single-post">
-                <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> micael1</h6>
-                <small>Jun 15 2022, 05:15AM</small>
-                <p>Mais um cardiozinho :)</p>
+            {% for post in Posts %}
+             <li class="single-post">
+                <h6 style="cursor:pointer;"> <i class="fas fa-user"></i>{{ post.creator }}</h6>
+                <small>{{ post.timestamp }}</small>
+                <p>{{ post.content }}</p>
+                {% if post.like == False %}
                 <button class="btn"><i class="fa-regular fa-heart"></i></button>
+                {% else %}
                 <button class="btn"><i class="fas fa-heart"></i></button><br>
+                {% endif %}
                 <button type="submit" class="btn btn-secondary mt-2 mb-2">Edit post</button>
                 
             </li>
-            </li>
-            <li class="single-post">
-                <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Eline</h6>
-                <small>Jun 16 2022, 7:19PM</small>
-                <p>Aff esse professor passando mais trabalho, um saco!</p>
-                <button class="btn"><i class="fa-regular fa-heart"></i></button>
-                <button class="btn"><i class="fas fa-heart"></i></button>
-            </li>
-            <li class="single-post">
-                <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Fabinho</h6>
-                <small>Jun 13 2022, 12:22PM</small>
-                <p>Não queria ir pra escola.</p>
-                <button class="btn"><i class="fa-regular fa-heart"></i></button>
-                <button class="btn"><i class="fas fa-heart"></i></button>
-            </li>
-            <li class="single-post">
-                <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Ellen</h6>
-                <small>Jun 11 2022, 08:13AM</small>
-                <p>acordei cedo pra pedalar igual o muzy.</p>
-                <button class="btn"><i class="fa-regular fa-heart"></i></button>
-                <button class="btn"><i class="fas fa-heart"></i></button>
-            </li>
-            <li class="single-post">
-                <h6 style="cursor:pointer;"> <i class="fas fa-user"></i> Melissa</h6>
-                <small>Jun 11 2022, 06:20AM</small>
-                <p>EITA ESQUECI A TAREFA DE FILOSOFIA!</p>
-                <button class="btn"><i class="fa-regular fa-heart"></i></button>
-                <button class="btn"><i class="fas fa-heart"></i></button>
-            </li>
+            {% endfor %}
+
         </ul>
-   </div>
+   </div>  
 {% endblock %}
 
 
 <!-- TASKLIST -->
 <!-- 
-    OK - separar as pastas
-    OK - gerar github e branch
-    OK - estudar o codigo
-    - melhorar o style (todas as paginas, inclusive o posts(começar com posts estáticos e ficcionais.))
-        OK - log in/ log out
-        OK -  nav 
-        OK - new post 
-        OK - Posts (Network and all posts, following and profile)
-        OK - edit post 
-        OK - profile page 
-                -NUMBER OF FOLLOWERS AND WHO THEY FOLLOW 
-                -SHOW THE POSTS OF THE USER IN REVERSE CRONOLOGICAL ORDER (NEWEST AT TOP)
-                -IF OTHER USER IS SEING THE PROFILE'S PAGE, HAVE A FOLLOW OR UNFOLLOW BUTTON
-
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       - OK Create Post 
+       - OK if not logged, clicking the "add post" leeds to an alert or an message
+       - Edit Post
+       - Organize posts in the pages in reverse cronological order
+       - Like/unlike
+       - Follow/unfollow
 
 -->

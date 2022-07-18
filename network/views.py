@@ -3,12 +3,14 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
-from .models import User
+from .models import Posts, User
+from datetime import datetime
 
 
 def index(request):
-    return render(request, "network/index.html")
+     return render(request, "network/index.html", {
+            "Posts": Posts.objects.all()
+        })
 
 
 def login_view(request):
@@ -65,3 +67,23 @@ def register(request):
 
 def profile(request): 
     return render(request, "network/profile.html")       
+
+
+def createPost(request):
+
+    if request.method == "POST":   
+       
+            content = request.POST['content']
+            creator = request.user
+            timestamp = datetime.now().replace(microsecond=0)
+            post = Posts(creator, timestamp, content, False)
+            post.save()
+            return render(request, "network/index.html", {
+                    "Posts": Posts.objects.all()
+                })
+                
+
+            
+
+
+
